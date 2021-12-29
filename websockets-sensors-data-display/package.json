@@ -1,0 +1,23 @@
+{
+  "name": "websockets-sensors-data-display",
+  "version": "0.0.1",
+  "description": "Display sensor data thru websockets",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "donsky <donsky.iot.tech@gmail.com> (www.donskytech.com)",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "concurrently": "^6.5.1",
+    "nodemon": "^2.0.15"
+  }
+}
