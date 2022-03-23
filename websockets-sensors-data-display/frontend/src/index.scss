@@ -1,0 +1,296 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Poppins:wght@300;500;600;700;800&display=swap");
+
+// Primary font stack (sans-serif-based), for most UI elements
+$primary-font-stack: "Merriweather Sans", system-ui, -apple-system,
+  BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+  "Helvetica Neue", sans-serif;
+// Secondary font stack (also sans-serif), for headings, buttons, and labels
+$secondary-font-stack: Poppins, system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+  sans-serif;
+
+// ---------------
+//  Global styles
+// ---------------
+
+* {
+  box-sizing: border-box;
+  color: white;
+  font-family: $primary-font-stack;
+}
+
+html {
+  /*
+	 * Now, this one is a bit of a hack: this line of code defines the size of the `rem` unit, which
+	 * I use extensively throughout the stylesheet as a sort of "responsive pixel".
+	 */
+  font-size: clamp(1px, 0.3vw, 1pt);
+}
+
+body {
+  overflow: hidden;
+  margin: 0;
+  background: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14rem;
+}
+
+// ----------------
+//  Element styles
+// ----------------
+
+h1 {
+  margin: 0;
+
+  font-family: Poppins;
+  font-weight: 300;
+  font-size: 24rem;
+  line-height: 36rem;
+}
+
+input {
+  flex: 1;
+  height: 48rem;
+  padding-inline: 18rem;
+
+  border: 2rem solid #333333;
+  border-radius: 6rem;
+
+  outline: none;
+  background: transparent;
+
+  font-size: 14rem;
+  line-height: 14rem;
+  letter-spacing: -0.015em;
+
+  transition: border 100ms linear;
+
+  ::placeholder {
+    color: rgba(white, 0.5);
+  }
+  &:focus {
+    border: 2rem solid #eeeeee;
+  }
+}
+
+button {
+  display: inline-block;
+
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 48rem;
+  padding-inline: 30rem;
+
+  border-radius: 6rem;
+  border: none;
+  outline: none;
+
+  background: white;
+  color: black;
+  cursor: pointer;
+
+  font-family: $secondary-font-stack;
+  font-weight: 800;
+  font-size: 14rem;
+  line-height: 14rem;
+  letter-spacing: 0.015em;
+
+  transition: filter 100ms linear;
+
+  &.icon-button {
+    display: inline-flex;
+
+    padding: 0;
+    width: 48rem;
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:hover,
+  &:focus {
+    filter: brightness(0.9);
+  }
+  &:active {
+    filter: brightness(0.8);
+  }
+}
+
+// -----------------------------------------------------
+//  Styles for the auth/onboarding page and kicked page
+// -----------------------------------------------------
+
+.simple-wrapper {
+  max-width: 480rem;
+  margin: auto;
+  margin-top: 50vh;
+
+  transform: translateY(calc(-50% - 60rem));
+}
+
+.simple-heading {
+  margin-top: 0;
+  margin-bottom: 6rem;
+
+  font-family: Poppins;
+  font-weight: 600;
+  font-size: 24rem;
+  line-height: 36rem;
+  text-align: center;
+  letter-spacing: -0.015em;
+}
+
+.simple-subhead {
+  margin-top: 0;
+  margin-bottom: 0;
+
+  text-align: center;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14rem;
+  line-height: 18rem;
+  letter-spacing: -0.015em;
+}
+
+.simple-section {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  margin-top: 18rem;
+  padding-inline: 24rem;
+}
+
+// --------------------------
+//  Styles for the chat page
+// --------------------------
+
+.chat-wrapper {
+  display: flex;
+
+  height: 100vh;
+  max-width: 720rem;
+  margin: auto;
+
+  flex-direction: column;
+}
+
+.chat-header {
+  position: fixed;
+  padding: 36rem 24rem 18rem 24rem;
+  height: 90rem;
+  width: 100vw;
+
+  background: rgba(black, 0.7);
+
+  backdrop-filter: saturate(180%) blur(20rem);
+}
+
+.chat-view-container {
+  flex: 1;
+  padding-top: 90rem;
+
+  overflow-y: auto;
+
+  // Custom scrollbar styles
+  &::-webkit-scrollbar {
+    background: black;
+    width: 8px;
+  }
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #141414;
+    border-radius: 4px;
+    &:hover {
+      background: #222222;
+    }
+    &:active {
+      background: #333333;
+    }
+  }
+}
+
+.message-input-container {
+  display: flex;
+  padding: 24rem;
+  flex-direction: column;
+  border-radius: 18rem 18rem 0rem 0rem;
+  background: #141414;
+}
+
+.chatting-as {
+  margin-top: 0;
+  margin-bottom: 12rem;
+
+  text-align: center;
+
+  font-size: 12rem;
+  line-height: 12rem;
+  letter-spacing: -0.015em;
+}
+
+.message-input-container-inner {
+  display: flex;
+  gap: 12rem;
+}
+
+.message-container {
+  padding: 12rem;
+  margin: 18rem;
+  width: fit-content;
+
+  border-radius: 12rem 12rem 12rem 0;
+
+  background: #141414;
+
+  &.own-message {
+    margin-left: auto;
+    border-radius: 12rem 12rem 0 12rem;
+    background: linear-gradient(to bottom, #0c8293, #005568);
+  }
+}
+
+.message-header {
+  display: flex;
+
+  margin-bottom: 4rem;
+
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.message-sender {
+  margin: 0;
+  margin-right: 1.5em;
+
+  font-family: $secondary-font-stack;
+  font-weight: bold;
+  font-size: 9rem;
+  line-height: 12rem;
+  letter-spacing: 0.015em;
+}
+
+.message-time {
+  margin: 0;
+
+  font-family: $secondary-font-stack;
+  font-weight: 500;
+  font-size: 9rem;
+  line-height: 12rem;
+  letter-spacing: 0.015em;
+}
+
+.message-body {
+  margin: 0;
+
+  font-family: $primary-font-stack;
+  font-size: 14rem;
+  line-height: 18rem;
+  letter-spacing: -0.025em;
+}
