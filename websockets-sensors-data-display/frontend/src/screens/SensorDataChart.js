@@ -81,7 +81,7 @@ const SensorChart = () => {
     };
 
     function limitData(currentData, message) {
-      if (currentData.length > 12) {
+      if (currentData.length > 24) {
         console.log("Limit reached, dropping first record!");
         currentData.shift();
       }
@@ -106,7 +106,7 @@ const SensorChart = () => {
         <h1 className="header">Real time IOT Sensor Data Using Websockets</h1>
       </Row>
       <Row className="justify-content-md-center">
-        <div style={{ width: 1000, height: 600 }}>
+        <div style={{ width: 1000, height: 400 }}>
           <ResponsiveContainer>
             <LineChart
               width={800}
@@ -120,7 +120,7 @@ const SensorChart = () => {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              {/* <XAxis dataKey="name" /> */}
+              {/* <XAxis dataKey="date" /> */}
               <YAxis />
               <Tooltip />
               <Legend />
@@ -128,7 +128,8 @@ const SensorChart = () => {
                 type="monotone"
                 dataKey="sensorData"
                 stroke="#8884d8"
-                activeDot={{ r: 12 }}
+                activeDot={{ r: 24 }}
+                strokeWidth="4"
               />
               {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
             </LineChart>
