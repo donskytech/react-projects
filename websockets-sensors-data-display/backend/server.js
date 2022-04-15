@@ -2,12 +2,18 @@ import { createServer } from "http";
 import { parse } from "url";
 import { WebSocketServer } from "ws";
 
+// Create the https server
 const server = createServer();
+// Create two instance of the websocket server
 const wss1 = new WebSocketServer({ noServer: true });
 const wss2 = new WebSocketServer({ noServer: true });
 
+// Take note of client or users connected
 const users = new Set();
 
+/*For the first connection "/request" path
+ We take note of the clients that initiated connection and saved it in our list
+ */
 wss1.on("connection", function connection(socket) {
   console.log("wss1:: User connected");
   const userRef = {
@@ -18,6 +24,11 @@ wss1.on("connection", function connection(socket) {
   users.add(userRef);
 });
 
+/*
+ For the second connection "/sendSensorData" path
+ This is where we received the sensor reads from the ESP32 Dev module.
+ Upon receiving the sensor read, we broadcast it to all the client listener
+*/
 wss2.on("connection", function connection(ws) {
   console.log("wss2:: socket connection ");
   ws.on('message', function message(data) {
@@ -28,12 +39,14 @@ wss2.on("connection", function connection(ws) {
       const jsonMessage = JSON.stringify(message);
       sendMessage(jsonMessage);
   });
-
-  ws.send('something');
 });
 
 
-
+/*
+This is the part where we create the two paths.  
+Initial connection is on HTTP but is upgraded to websockets
+The two path "/request" and "/sendSensorData" is defined here
+*/
 server.on("upgrade", function upgrade(request, socket, head) {
   const { pathname } = parse(request.url);
   console.log(`Path name ${pathname}`);
@@ -60,14 +73,3 @@ const sendMessage = (message) => {
   }
 };
 
-// setInterval(() => {
-//   const now = Date.now();
-//   let message = { date: now, sensorData: getRandomArbitrary(0, 100) };
-//   const jsonMessage = JSON.stringify(message);
-//   // console.log(jsonMessage);
-//   sendMessage(jsonMessage);
-// }, 2000);
-
-// function getRandomArbitrary(min, max) {
-//   return Math.floor(Math.random() * (max - min) + min);
-// }
