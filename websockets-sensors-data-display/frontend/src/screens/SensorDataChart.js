@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import {
   LineChart,
   Line,
@@ -11,61 +10,18 @@ import {
 } from "recharts";
 import { Row, Container } from "react-bootstrap";
 
-// const dataA = [
-//   {
-//     name: "Page A",
-//     uv: 4000,
-//     pv: 2400,
-//     amt: 2400,
-//   },
-//   {
-//     name: "Page B",
-//     uv: 3000,
-//     pv: 1398,
-//     amt: 2210,
-//   },
-//   {
-//     name: "Page C",
-//     uv: 2000,
-//     pv: 9800,
-//     amt: 2290,
-//   },
-//   {
-//     name: "Page D",
-//     uv: 2780,
-//     pv: 3908,
-//     amt: 2000,
-//   },
-//   {
-//     name: "Page E",
-//     uv: 1890,
-//     pv: 4800,
-//     amt: 2181,
-//   },
-//   {
-//     name: "Page F",
-//     uv: 2390,
-//     pv: 3800,
-//     amt: 2500,
-//   },
-//   {
-//     name: "Page G",
-//     uv: 3490,
-//     pv: 4300,
-//     amt: 2100,
-//   },
-// ];
-
 const SensorChart = () => {
   const ws = useRef();
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    //Send request to our websocket server using the "/request" path
     ws.current = new WebSocket("ws://localhost:8080/request");
 
     ws.current.onmessage = (ev) => {
       const message = JSON.parse(ev.data);
       console.log(`Received message :: ${message.sensorData}`);
+      // Upon receiving websocket message then add it to the list of data that we are displaying
       let newDataArray = [
         ...data,
         {
@@ -80,6 +36,7 @@ const SensorChart = () => {
       console.log("Client socket close!");
     };
 
+    //We limit the number of reads to the last 24 reading and drop the last read
     function limitData(currentData, message) {
       if (currentData.length > 24) {
         console.log("Limit reached, dropping first record!");
@@ -95,11 +52,12 @@ const SensorChart = () => {
     }
 
     return () => {
-      console.log("Cleaning up! 🧼");
+      console.log("Cleaning up! ");
       ws.current.close();
     };
   }, []);
 
+  //Display the chart using rechart.js
   return (
     <Container className="p-3">
       <Row className="justify-content-md-center">

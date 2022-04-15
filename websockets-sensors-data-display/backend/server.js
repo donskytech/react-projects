@@ -63,9 +63,10 @@ server.on("upgrade", function upgrade(request, socket, head) {
     socket.destroy();
   }
 });
-
+//Open the server port in 8080
 server.listen(8080);
 
+//function to send websocket messages to user
 const sendMessage = (message) => {
   // console.log("Sending messages to users!");
   for (const user of users) {
